@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Mobile-A1</string>
+    <string name="app_name">ShopNotes</string>
+    <string name="activity_main_title">Shopping notes</string>
 </resources>
