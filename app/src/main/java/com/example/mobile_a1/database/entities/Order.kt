@@ -6,6 +6,6 @@ import java.util.Date
 
 @Entity(tableName = "Orders")
 data class Order(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val orderDate: Date = Date()
 )

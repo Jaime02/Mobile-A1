@@ -16,7 +16,7 @@ interface OrderDao {
     fun get(orderId: Int): Order
 
     @Insert
-    fun insert(order: Order)
+    fun insert(order: Order): Long
 
     @Delete
     fun delete(order: Order)

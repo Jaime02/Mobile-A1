@@ -24,8 +24,9 @@ import androidx.room.PrimaryKey
     indices = [Index(value = ["orderId"]), Index(value = ["productId"])]
 )
 data class OrderLine(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val orderId: Int, // Foreign key to the Order entity
-    val productId: Int, // Foreign key to the Product entity
-    val quantity: Int // Quantity of this product in the order
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val orderId: Long,
+    val productId: Long,
+    val quantity: Long,
+    val completed: Boolean = false
 )

@@ -15,7 +15,7 @@ interface ProductDao {
     fun get(productId: Int): Product
 
     @Insert
-    fun insert(product: Product)
+    fun insert(product: Product): Long
 
     @Delete
     fun delete(product: Product)

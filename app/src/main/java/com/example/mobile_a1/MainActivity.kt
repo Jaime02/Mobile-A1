@@ -1,9 +1,9 @@
 package com.example.mobile_a1
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -29,7 +29,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             MobileA1Theme {
                 val viewModel: OrderListViewModel = hiltViewModel()
@@ -49,7 +48,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ShoppingOrderList(modifier: Modifier = Modifier, viewModel: OrderListViewModel) {
     val items by viewModel.items.collectAsState()
-
     LazyColumn(modifier = modifier.fillMaxSize()) {
         items(items) { item ->
             Row(modifier = Modifier.padding(8.dp)) {
