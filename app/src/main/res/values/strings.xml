@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">ShopNotes</string>
     <string name="activity_main_title">Shopping notes</string>
+    <string name="compras_pendientes">Compras pendientes</string>
+    <string name="anadir_compra">Añadir compra</string>
+    <string name="ver">Ver</string>
+    <string name="no_hay_pedidos">No hay pedidos</string>
+    <plurals name="product_count">
+        <item quantity="one">%d producto</item>
+        <item quantity="other">%d productos</item>
+    </plurals>
 </resources>

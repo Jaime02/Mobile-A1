@@ -6,12 +6,14 @@ import androidx.room.TypeConverters
 import com.example.mobile_a1.database.dao.OrderDao
 import com.example.mobile_a1.database.dao.OrderLineDao
 import com.example.mobile_a1.database.dao.ProductDao
+import com.example.mobile_a1.database.dao.SupermarketDao
 import com.example.mobile_a1.database.entities.Order
 import com.example.mobile_a1.database.entities.OrderLine
 import com.example.mobile_a1.database.entities.Product
+import com.example.mobile_a1.database.entities.Supermarket
 
 @Database(
-    entities = [Order::class, OrderLine::class, Product::class],
+    entities = [Order::class, OrderLine::class, Product::class, Supermarket::class],
     version = 1,
     exportSchema = false
 )
@@ -20,4 +22,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun orderDao(): OrderDao
     abstract fun orderLineDao(): OrderLineDao
     abstract fun productDao(): ProductDao
+    abstract fun supermarketDao(): SupermarketDao
 }

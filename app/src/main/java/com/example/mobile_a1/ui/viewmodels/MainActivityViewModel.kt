@@ -10,12 +10,12 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class OrderListViewModel @Inject constructor(
-    private val dao: OrderDao
+class MainActivityViewModel @Inject constructor(
+    dao: OrderDao
 ) : ViewModel() {
-    val items = dao.getOrdersWithProducts().stateIn(
+    val pendingOrders = dao.getOrdersGroupedBySupermarket().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        initialValue = emptyList()
+        initialValue = emptyMap()
     )
 }
