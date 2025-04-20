@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.mobile_a1.database.entities.Supermarket
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SupermarketDao {
@@ -12,7 +13,7 @@ interface SupermarketDao {
     fun getAll(): List<Supermarket>
 
     @Query("SELECT * FROM Supermarkets WHERE id = :supermarketId")
-    fun get(supermarketId: Int): Supermarket
+    fun get(supermarketId: Long): Flow<Supermarket>
 
     @Insert
     fun insert(supermarket: Supermarket): Long

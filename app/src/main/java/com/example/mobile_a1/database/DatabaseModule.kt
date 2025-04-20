@@ -7,6 +7,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.mobile_a1.database.dao.OrderDao
 import com.example.mobile_a1.database.dao.OrderLineDao
 import com.example.mobile_a1.database.dao.ProductDao
+import com.example.mobile_a1.database.dao.SupermarketDao
 import com.example.mobile_a1.database.entities.Order
 import com.example.mobile_a1.database.entities.OrderLine
 import com.example.mobile_a1.database.entities.Product
@@ -58,6 +59,9 @@ object DatabaseModule {
     @Provides
     fun provideProductDao(db: AppDatabase): ProductDao = db.productDao()
 
+    @Provides
+    fun provideSupermarketDao(db: AppDatabase): SupermarketDao = db.supermarketDao()
+
     fun seedDb(database: AppDatabase) {
         val orderDao = database.orderDao()
         val productDao = database.productDao()
@@ -105,13 +109,13 @@ object DatabaseModule {
         val order2Line1 = OrderLine(orderId = order2Id, productId = product5Id, quantity = 1)
         val order2Line2 = OrderLine(orderId = order2Id, productId = product6Id, quantity = 3)
         val order3Line1 = OrderLine(orderId = order3Id, productId = product1Id, quantity = 2)
-        val order3Line2 = OrderLine(orderId = order3Id, productId = product2Id, quantity = 3)
+        val order3Line2 = OrderLine(orderId = order3Id, productId = product2Id, quantity = 2)
         val order4Line1 = OrderLine(orderId = order4Id, productId = product3Id, quantity = 4)
         val order4Line2 = OrderLine(orderId = order4Id, productId = product4Id, quantity = 5)
         val order4Line3 = OrderLine(orderId = order4Id, productId = product5Id, quantity = 1)
         val order5Line1 = OrderLine(orderId = order5Id, productId = product6Id, quantity = 3)
         val order5Line2 = OrderLine(orderId = order5Id, productId = product1Id, quantity = 2)
-        val order5Line3 = OrderLine(orderId = order5Id, productId = product2Id, quantity = 3)
+        val order5Line3 = OrderLine(orderId = order5Id, productId = product2Id, quantity = 1)
 
         orderLineDao.insert(order1Line1)
         orderLineDao.insert(order1Line2)

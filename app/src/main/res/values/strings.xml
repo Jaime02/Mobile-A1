@@ -5,6 +5,9 @@
     <string name="anadir_compra">Añadir compra</string>
     <string name="ver">Ver</string>
     <string name="no_hay_pedidos">No hay pedidos</string>
+    <string name="pedido_en_supermercado">Pedido en %s</string>
+    <string name="order_activity_title">Orden</string>
+    <string name="quantity_product">%1$s %2$s</string>
     <plurals name="product_count">
         <item quantity="one">%d producto</item>
         <item quantity="other">%d productos</item>

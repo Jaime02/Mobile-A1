@@ -13,7 +13,7 @@ import javax.inject.Inject
 class MainActivityViewModel @Inject constructor(
     dao: OrderDao
 ) : ViewModel() {
-    val pendingOrders = dao.getOrdersGroupedBySupermarket().stateIn(
+    val pendingOrders = dao.getPendingOrdersGroupedBySupermarket().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = emptyMap()

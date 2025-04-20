@@ -19,5 +19,6 @@ import java.util.Date
 data class Order(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val orderDate: Date = Date(),
+    val completed: Boolean = false,
     val supermarketId: Long,
 )

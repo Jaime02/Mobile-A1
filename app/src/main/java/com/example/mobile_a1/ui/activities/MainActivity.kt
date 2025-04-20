@@ -1,5 +1,6 @@
-package com.example.mobile_a1
+package com.example.mobile_a1.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -32,6 +33,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.mobile_a1.R
 import com.example.mobile_a1.database.Converters
 import com.example.mobile_a1.database.dao.OrderWithMetadata
 import com.example.mobile_a1.ui.theme.MobileA1Theme
@@ -76,7 +78,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun PendingSupermarketsList(modifier: Modifier = Modifier, viewModel: MainActivityViewModel) {
     val groupedOrders by viewModel.pendingOrders.collectAsState(initial = emptyMap())
-    Log.d("PendingSupermarketsList", "groupedOrders: $groupedOrders")
     LazyColumn(modifier = modifier.fillMaxSize()) {
         groupedOrders.forEach { (supermarketName, orders) ->
             item {
@@ -95,7 +96,7 @@ fun SupermarketItem(supermarketName: String, orders: List<OrderWithMetadata>) {
         modifier = Modifier
             .fillMaxWidth()
             .clickable { isExpanded = !isExpanded }
-            .padding(8.dp)
+            .padding(4.dp)
     ) {
         Text(
             text = supermarketName,
@@ -120,30 +121,36 @@ fun SupermarketItem(supermarketName: String, orders: List<OrderWithMetadata>) {
 }
 
 @Composable
-fun OrderItemRow(orderWithMetadata: OrderWithMetadata) {
+fun OrderItemRow(orderWithMetadata: OrderWithMetadata) { // Removed the lambda parameter
     val context = LocalContext.current
     val productText = context.resources.getQuantityString(
-        R.plurals.product_count,
-        orderWithMetadata.orderLineCount,
-        orderWithMetadata.orderLineCount
+        R.plurals.product_count, orderWithMetadata.orderLineCount, orderWithMetadata.orderLineCount
     )
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp, horizontal = 8.dp), // Add vertical padding for better spacing
-        verticalAlignment = Alignment.CenterVertically // Center items vertically
+            .clickable {
+                val intent = Intent(context, OrderActivity::class.java)
+                intent.putExtra("orderId", orderWithMetadata.order.id)
+                context.startActivity(intent)
+            }
+            .padding(4.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = Converters.dateToUserString(orderWithMetadata.order.orderDate),
-            modifier = Modifier.width(100.dp)
+            modifier = Modifier.width(100.dp),
         )
         Text(
             text = productText,
-            modifier = Modifier.weight(1f) // Take remaining space
+            modifier = Modifier.weight(1f)
         )
         Button(
-            onClick = { /* TODO: Navigate to order details activity */ },
+            onClick = {
+                val intent = Intent(context, OrderActivity::class.java)
+                intent.putExtra("orderId", orderWithMetadata.order.id)
+                context.startActivity(intent)
+            },
             modifier = Modifier
         ) {
             Text(text = stringResource(R.string.ver))
