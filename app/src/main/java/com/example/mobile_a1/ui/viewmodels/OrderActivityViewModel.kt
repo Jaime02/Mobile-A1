@@ -1,6 +1,5 @@
 package com.example.mobile_a1.ui.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mobile_a1.database.dao.OrderDao

@@ -2,7 +2,6 @@ package com.example.mobile_a1.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
@@ -36,7 +35,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mobile_a1.R
 import com.example.mobile_a1.database.Converters
 import com.example.mobile_a1.database.dao.OrderWithMetadata
+import com.example.mobile_a1.ui.theme.Blue
 import com.example.mobile_a1.ui.theme.MobileA1Theme
+import com.example.mobile_a1.ui.theme.SecondaryBlue
 import com.example.mobile_a1.ui.viewmodels.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -58,7 +59,11 @@ class MainActivity : ComponentActivity() {
                         )
                     },
                     floatingActionButton = {
-                        FloatingActionButton(onClick = { /* TODO: Navigate to add supermarket/order screen */ }) {
+                        FloatingActionButton(
+                            onClick = { /* TODO: Navigate to add supermarket/order screen */ },
+                            containerColor = Blue,
+                            contentColor = SecondaryBlue
+                        ) {
                             Icon(
                                 Icons.Default.Add,
                                 contentDescription = stringResource(R.string.anadir_compra)
@@ -121,7 +126,7 @@ fun SupermarketItem(supermarketName: String, orders: List<OrderWithMetadata>) {
 }
 
 @Composable
-fun OrderItemRow(orderWithMetadata: OrderWithMetadata) { // Removed the lambda parameter
+fun OrderItemRow(orderWithMetadata: OrderWithMetadata) {
     val context = LocalContext.current
     val productText = context.resources.getQuantityString(
         R.plurals.product_count, orderWithMetadata.orderLineCount, orderWithMetadata.orderLineCount
