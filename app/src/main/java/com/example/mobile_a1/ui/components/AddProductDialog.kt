@@ -73,7 +73,7 @@ fun AddProductDialog(
             }
         },
         dismissButton = {
-            Button(onClick = onDismissRequest) {
+            OutlinedButton(onClick = onDismissRequest) {
                 Text(stringResource(R.string.cancel))
             }
         }
