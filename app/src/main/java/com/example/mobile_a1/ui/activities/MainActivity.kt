@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mobile_a1.R
@@ -48,19 +49,23 @@ class MainActivity : ComponentActivity() {
         setContent {
             MobileA1Theme {
                 val viewModel: MainActivityViewModel = hiltViewModel()
+                val context = LocalContext.current
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     topBar = {
                         Text(
                             stringResource(R.string.compras_pendientes),
                             style = androidx.compose.material3.MaterialTheme.typography.headlineMedium,
-                            textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                            textAlign = TextAlign.Center,
                             modifier = Modifier.fillMaxWidth()
                         )
                     },
                     floatingActionButton = {
                         FloatingActionButton(
-                            onClick = { /* TODO: Navigate to add supermarket/order screen */ },
+                            onClick = {
+                                val intent = Intent(context, CreateOrderActivity::class.java)
+                                context.startActivity(intent)
+                            },
                             containerColor = Blue,
                             contentColor = SecondaryBlue
                         ) {
@@ -83,11 +88,34 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun PendingSupermarketsList(modifier: Modifier = Modifier, viewModel: MainActivityViewModel) {
     val groupedOrders by viewModel.pendingOrders.collectAsState(initial = emptyMap())
-    LazyColumn(modifier = modifier.fillMaxSize()) {
-        groupedOrders.forEach { (supermarketName, orders) ->
-            item {
-                SupermarketItem(supermarketName = supermarketName, orders = orders)
-                HorizontalDivider()
+
+    if (groupedOrders.isEmpty()) {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center
+        ) {
+            Text(
+                text = stringResource(R.string.no_pending_orders),
+                style = androidx.compose.material3.MaterialTheme.typography.bodyLarge,
+                textAlign = TextAlign.Center
+            )
+            Text(
+                text = stringResource(R.string.tap_add_button_to_create_order),
+                style = androidx.compose.material3.MaterialTheme.typography.bodyMedium,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 8.dp)
+            )
+        }
+    } else {
+        LazyColumn(modifier = modifier.fillMaxSize()) {
+            groupedOrders.forEach { (supermarketName, orders) ->
+                item {
+                    SupermarketItem(supermarketName = supermarketName, orders = orders)
+                    HorizontalDivider()
+                }
             }
         }
     }
@@ -110,8 +138,10 @@ fun SupermarketItem(supermarketName: String, orders: List<OrderWithMetadata>) {
         )
         if (isExpanded) {
             if (orders.isEmpty()) {
+                // This case should ideally not happen if groupedOrders doesn't have empty lists for non-empty keys,
+                // but it's good practice to keep this check or rely on the outer check.
                 Text(
-                    text = stringResource(R.string.no_hay_pedidos),
+                    text = stringResource(R.string.no_hay_pedidos), // Consider renaming this resource to be more specific if used elsewhere
                     modifier = Modifier.padding(start = 16.dp, top = 4.dp)
                 )
             } else {

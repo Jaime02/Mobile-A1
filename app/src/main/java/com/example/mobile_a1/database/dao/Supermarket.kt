@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface SupermarketDao {
     @Query("SELECT * FROM Supermarkets")
-    fun getAll(): List<Supermarket>
+    fun getAll(): Flow<List<Supermarket>>
 
     @Query("SELECT * FROM Supermarkets WHERE id = :supermarketId")
     fun get(supermarketId: Long): Flow<Supermarket>

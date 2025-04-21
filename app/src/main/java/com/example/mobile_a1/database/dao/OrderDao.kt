@@ -6,10 +6,8 @@ import androidx.room.Delete
 import androidx.room.Embedded
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Transaction
 import androidx.room.Update
 import com.example.mobile_a1.database.entities.Order
-import com.example.mobile_a1.database.entities.OrderLine
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.util.TreeMap
@@ -25,10 +23,11 @@ interface OrderDao {
         FROM Orders o
         LEFT JOIN OrderLine ol ON o.id = ol.orderId
         LEFT JOIN Supermarkets s ON o.supermarketId = s.id
+        WHERE o.completed = 0
         GROUP BY o.id
         """
     )
-    fun getAllWithMetadata(): Flow<List<OrderWithMetadata>>
+    fun getPendingOrdersWithMetadata(): Flow<List<OrderWithMetadata>>
 
     @Query("SELECT * FROM Orders WHERE id = :orderId")
     fun get(orderId: Long): Flow<Order>
@@ -44,7 +43,7 @@ interface OrderDao {
 
     // Get all the orders that are not completed grouped into a map by supermarket name
     fun getPendingOrdersGroupedBySupermarket(): Flow<Map<String, List<OrderWithMetadata>>> {
-        return getAllWithMetadata().map { list ->
+        return getPendingOrdersWithMetadata().map { list ->
             val map = TreeMap<String, MutableList<OrderWithMetadata>>()
             list.forEach { item ->
                 if (!map.containsKey(item.supermarketName)) {

@@ -29,6 +29,11 @@
             android:exported="true"
             android:label="@string/order_activity_title"
             android:theme="@style/Theme.MobileA1" />
+        <activity
+            android:name=".ui.activities.CreateOrderActivity"
+            android:exported="true"
+            android:label="@string/create_order_activity_title"
+            android:theme="@style/Theme.MobileA1" />
     </application>
 
 </manifest>
