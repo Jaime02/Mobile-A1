@@ -25,6 +25,8 @@
     <string name="create_order_activity_title">Crear compra</string>
     <string name="no_pending_orders">No hay compras pendientes</string>
     <string name="tap_add_button_to_create_order">Toca el botón "+" para crear un nuevo pedido</string>
+    <string name="collapse">Cerrar</string>
+    <string name="expand">Abrir</string>
     <plurals name="product_count">
         <item quantity="one">%d producto</item>
         <item quantity="other">%d productos</item>

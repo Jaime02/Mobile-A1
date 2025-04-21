@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
@@ -28,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -57,7 +61,9 @@ class MainActivity : ComponentActivity() {
                             stringResource(R.string.compras_pendientes),
                             style = androidx.compose.material3.MaterialTheme.typography.headlineMedium,
                             textAlign = TextAlign.Center,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 16.dp)
                         )
                     },
                     floatingActionButton = {
@@ -95,7 +101,7 @@ fun PendingSupermarketsList(modifier: Modifier = Modifier, viewModel: MainActivi
                 .fillMaxSize()
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center
+            verticalArrangement = Arrangement.Center
         ) {
             Text(
                 text = stringResource(R.string.no_pending_orders),
@@ -113,7 +119,7 @@ fun PendingSupermarketsList(modifier: Modifier = Modifier, viewModel: MainActivi
         LazyColumn(modifier = modifier.fillMaxSize()) {
             groupedOrders.forEach { (supermarketName, orders) ->
                 item {
-                    SupermarketItem(supermarketName = supermarketName, orders = orders)
+                    SupermarketOrdersItem(supermarketName = supermarketName, orders = orders)
                     HorizontalDivider()
                 }
             }
@@ -122,33 +128,47 @@ fun PendingSupermarketsList(modifier: Modifier = Modifier, viewModel: MainActivi
 }
 
 @Composable
-fun SupermarketItem(supermarketName: String, orders: List<OrderWithMetadata>) {
+fun SupermarketOrdersItem(supermarketName: String, orders: List<OrderWithMetadata>) {
     var isExpanded by remember { mutableStateOf(false) }
+    val rotation by animateFloatAsState(targetValue = if (isExpanded) 180f else 0f, label = "arrowRotation")
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { isExpanded = !isExpanded }
-            .padding(4.dp)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
-        Text(
-            text = supermarketName,
-            style = androidx.compose.material3.MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.padding(bottom = 4.dp)
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = supermarketName,
+                style = androidx.compose.material3.MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.weight(1f),
+            )
+            Icon(
+                imageVector = Icons.Filled.ArrowDropDown,
+                contentDescription = if (isExpanded) stringResource(R.string.collapse) else stringResource(R.string.expand),
+                modifier = Modifier
+                    .rotate(rotation)
+                    .padding(start = 8.dp)
+            )
+        }
+
         if (isExpanded) {
-            if (orders.isEmpty()) {
-                // This case should ideally not happen if groupedOrders doesn't have empty lists for non-empty keys,
-                // but it's good practice to keep this check or rely on the outer check.
-                Text(
-                    text = stringResource(R.string.no_hay_pedidos), // Consider renaming this resource to be more specific if used elsewhere
-                    modifier = Modifier.padding(start = 16.dp, top = 4.dp)
-                )
-            } else {
-                // Sort the orders by date, from most recent to oldest
-                val sortedOrders = orders.sortedBy { it.order.orderDate }
-                sortedOrders.forEach { orderWithMetadata ->
-                    OrderItemRow(orderWithMetadata = orderWithMetadata)
+            Column(modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 8.dp)) {
+                if (orders.isEmpty()) {
+                    Text(
+                        text = stringResource(R.string.no_hay_pedidos),
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+                } else {
+                    val sortedOrders = orders.sortedBy { it.order.orderDate }
+                    sortedOrders.forEach { orderWithMetadata ->
+                        OrderItemRow(orderWithMetadata = orderWithMetadata)
+                    }
                 }
             }
         }
@@ -169,8 +189,9 @@ fun OrderItemRow(orderWithMetadata: OrderWithMetadata) {
                 intent.putExtra("orderId", orderWithMetadata.order.id)
                 context.startActivity(intent)
             }
-            .padding(4.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
             text = Converters.dateToUserString(orderWithMetadata.order.orderDate),
@@ -178,7 +199,9 @@ fun OrderItemRow(orderWithMetadata: OrderWithMetadata) {
         )
         Text(
             text = productText,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = 8.dp)
         )
         Button(
             onClick = {
