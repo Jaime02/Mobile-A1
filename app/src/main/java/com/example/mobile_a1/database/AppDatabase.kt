@@ -12,6 +12,7 @@ import com.example.mobile_a1.database.entities.OrderLine
 import com.example.mobile_a1.database.entities.Product
 import com.example.mobile_a1.database.entities.Supermarket
 
+// Module that provides the Room database and its DAOs.
 @Database(
     entities = [Order::class, OrderLine::class, Product::class, Supermarket::class],
     version = 1,

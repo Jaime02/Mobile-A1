@@ -21,6 +21,9 @@ import com.example.mobile_a1.ui.theme.MobileA1Theme
 import com.example.mobile_a1.ui.viewmodels.CreateOrderActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+
+// Activity that allows the user to create a new order by selecting a supermarket and adding
+// products to the order.
 @AndroidEntryPoint
 class CreateOrderActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

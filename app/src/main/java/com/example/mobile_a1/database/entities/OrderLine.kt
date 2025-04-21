@@ -5,6 +5,8 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
+// Entity class representing an OrderLine in the database.
+// This class represents a line item in an order, linking an order to a product.
 @Entity(
     tableName = "OrderLine",
     foreignKeys = [

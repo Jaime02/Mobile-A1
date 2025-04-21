@@ -6,6 +6,10 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.util.Date
 
+// Entity class representing an Order in the database.
+// This class represents a customer's order, linking it to a specific supermarket.
+// The order contains information about the order date, completion status, and the supermarket it
+// belongs to.
 @Entity(
     tableName = "Orders",
     foreignKeys = [

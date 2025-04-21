@@ -8,6 +8,7 @@ import androidx.compose.ui.res.stringResource
 import com.example.mobile_a1.R
 import com.example.mobile_a1.database.entities.Supermarket
 
+// Composable function that displays a dropdown menu for selecting a supermarket.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SupermarketSelector(

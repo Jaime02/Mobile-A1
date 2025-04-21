@@ -23,6 +23,7 @@ import javax.inject.Singleton
 import com.example.mobile_a1.database.entities.Supermarket
 import java.util.Calendar
 
+// Module that provides the Room database and its DAOs.
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
@@ -62,6 +63,7 @@ object DatabaseModule {
     @Provides
     fun provideSupermarketDao(db: AppDatabase): SupermarketDao = db.supermarketDao()
 
+    // Function to seed the database with initial data.
     fun seedDb(database: AppDatabase) {
         val orderDao = database.orderDao()
         val productDao = database.productDao()

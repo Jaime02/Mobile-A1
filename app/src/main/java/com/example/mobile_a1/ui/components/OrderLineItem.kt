@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.example.mobile_a1.R
 import com.example.mobile_a1.database.entities.Product
 
+// Composable function that represents a single line item in an order.
 @Composable
 fun OrderLineItem(
     product: Product,

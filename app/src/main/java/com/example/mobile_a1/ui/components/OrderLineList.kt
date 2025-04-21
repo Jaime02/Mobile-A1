@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.mobile_a1.R
 import com.example.mobile_a1.database.entities.Product
 
+// Composable function that displays a list of order lines, each containing a product and its quantity.
 @Composable
 fun OrderLineList(
     orderLines: SnapshotStateList<Pair<Product, MutableState<Long>>>,

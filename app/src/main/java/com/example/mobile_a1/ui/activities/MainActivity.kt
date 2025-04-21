@@ -46,6 +46,7 @@ import com.example.mobile_a1.ui.theme.SecondaryBlue
 import com.example.mobile_a1.ui.viewmodels.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+// Main activity that displays a list of pending orders grouped by supermarket.
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

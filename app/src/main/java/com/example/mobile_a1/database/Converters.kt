@@ -6,6 +6,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
+// Utility class for converting between Date and Long types for Room database.
 class Converters {
     @TypeConverter
     fun fromTimestamp(value: Long?): Date? {

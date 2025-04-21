@@ -28,6 +28,8 @@ import com.example.mobile_a1.ui.theme.MobileA1Theme
 import com.example.mobile_a1.ui.viewmodels.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+// Activity that displays the details of a specific order, including the products and their
+// completion status. The user can check order lines as they are completed.
 @AndroidEntryPoint
 class OrderActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

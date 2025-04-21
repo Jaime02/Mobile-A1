@@ -7,6 +7,7 @@ import androidx.compose.ui.res.stringResource
 import com.example.mobile_a1.R
 import com.example.mobile_a1.database.entities.Product
 
+// Dialog for adding a product to an order.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddProductDialog(
