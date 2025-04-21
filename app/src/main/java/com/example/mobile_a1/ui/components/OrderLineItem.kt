@@ -28,14 +28,7 @@ fun OrderLineItem(
             .padding(vertical = 4.dp)
     ) {
         Text(product.name, modifier = Modifier.weight(1f))
-        OutlinedTextField(
-            value = quantityState.value.toString(),
-            onValueChange = { newValue ->
-                quantityState.value = newValue.filter { it.isDigit() }.toLongOrNull() ?: 0L
-            },
-            label = { Text(stringResource(R.string.quantity)) },
-            modifier = Modifier.width(100.dp)
-        )
+        QuantityInput(quantityState = quantityState)
         IconButton(onClick = onRemoveClick) {
             Icon(Icons.Default.Delete, stringResource(R.string.delete))
         }

@@ -27,6 +27,8 @@
     <string name="tap_add_button_to_create_order">Toca el botón "+" para crear un nuevo pedido</string>
     <string name="collapse">Cerrar</string>
     <string name="expand">Abrir</string>
+    <string name="increase_quantity">Incrementar cantidad</string>
+    <string name="decrease_quantity">Reducir cantidad</string>
     <plurals name="product_count">
         <item quantity="one">%d producto</item>
         <item quantity="other">%d productos</item>
